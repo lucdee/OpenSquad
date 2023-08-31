@@ -6,6 +6,8 @@ import com.example.rollmoney.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @AllArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService{
@@ -16,7 +18,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
-
+        usuarioDTO.setLevel(0L);
+        usuarioDTO.setDataregistro(LocalDate.now());
         usuarioRepository.save(usuarioMapper.map(usuarioDTO));
         return null;
     }

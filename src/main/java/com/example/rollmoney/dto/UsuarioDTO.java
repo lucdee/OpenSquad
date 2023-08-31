@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.Column;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -33,10 +34,10 @@ public class UsuarioDTO {
     private String cpf;
 
     @JsonProperty("datanascimento")
-    private String datanascimento;
+    private LocalDate datanascimento;
 
     @JsonProperty("dataregistro")
-    private String dataregistro;
+    private LocalDate dataregistro;
 
     @JsonProperty("level")
     private Long level;

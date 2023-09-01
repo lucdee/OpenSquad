@@ -23,4 +23,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.autenticar(autenticadorDTO));
     }
 
+    @GetMapping("/verificar")
+    public ResponseEntity<UsuarioDTO> verificarUsuarioPorToken(
+            @RequestParam("token") String token){
+        return ResponseEntity.ok(authService.verificarUsuarioPorToken(token));
+    }
+
 }

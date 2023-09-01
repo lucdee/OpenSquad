@@ -27,9 +27,6 @@ public class UsuarioDTO {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("senha")
-    private String senha;
-
     @JsonProperty("cpf")
     private String cpf;
 

@@ -16,8 +16,16 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> save(
+            @RequestParam("senha") String senha,
             @RequestBody UsuarioDTO usuarioDTO){
 
-        return ResponseEntity.ok(usuarioService.save(usuarioDTO));
+        return ResponseEntity.ok(usuarioService.save(usuarioDTO, senha));
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<UsuarioDTO> findByNomeUsuario(
+            @RequestParam("nomeusuario") String nomeusuario){
+
+        return ResponseEntity.ok(usuarioService.findByNomeUsuario(nomeusuario));
     }
 }

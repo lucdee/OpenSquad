@@ -1,5 +1,6 @@
 package com.example.rollmoney.service;
 
+import com.example.rollmoney.dto.UsuarioDTO;
 import com.example.rollmoney.dto.auth.AutenticadorDTO;
 import com.example.rollmoney.dto.auth.AutenticadorResponseDTO;
 import com.example.rollmoney.entity.Autenticacao;
@@ -7,9 +8,11 @@ import com.example.rollmoney.entity.Usuario;
 import com.example.rollmoney.mapper.UsuarioMapper;
 import com.example.rollmoney.repository.AutenticacaoRepository;
 import com.example.rollmoney.repository.UsuarioRepository;
+import com.example.rollmoney.service.exception.ProfileDataException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -47,5 +50,18 @@ public class AuthServiceImpl implements AuthService{
 
         }
         return null;
+    }
+
+    @Override
+    public UsuarioDTO verificarUsuarioPorToken(String token) {
+
+        try {
+            Autenticacao autenticacao = autenticacaoRepository.findByToken(token);
+            Optional<Usuario> usuario = usuarioRepository.findById(autenticacao.getUsuarioid()) ;
+            return usuarioMapper.map(usuario.get());
+        }catch (Exception e){
+            throw new ProfileDataException("Usuário não encontrado");
+        }
+
     }
 }

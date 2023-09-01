@@ -15,11 +15,13 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> save(
+    public ResponseEntity<String> save(
             @RequestParam("senha") String senha,
+            @RequestParam("email") String email,
+            @RequestParam("cpf") String cpf,
             @RequestBody UsuarioDTO usuarioDTO){
 
-        return ResponseEntity.ok(usuarioService.save(usuarioDTO, senha));
+        return ResponseEntity.ok(usuarioService.save(usuarioDTO, senha,email,cpf));
     }
 
     @GetMapping("/find")

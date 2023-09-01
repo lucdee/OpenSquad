@@ -4,7 +4,7 @@ import com.example.rollmoney.dto.UsuarioDTO;
 
 public interface UsuarioService {
 
-    UsuarioDTO save(UsuarioDTO usuarioDTO, String senha);
+    String save(UsuarioDTO usuarioDTO, String senha, String email, String cpf);
 
     UsuarioDTO findByNomeUsuario(String nomeUsuario);
 }

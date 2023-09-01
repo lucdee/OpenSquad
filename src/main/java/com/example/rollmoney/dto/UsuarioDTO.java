@@ -24,17 +24,11 @@ public class UsuarioDTO {
     @JsonProperty("nomeusuario")
     private String nomeusuario;
 
-    @JsonProperty("email")
-    private String email;
-
-    @JsonProperty("cpf")
-    private String cpf;
+    @JsonProperty("dataregistro")
+    private LocalDate dataregistro;
 
     @JsonProperty("datanascimento")
     private LocalDate datanascimento;
-
-    @JsonProperty("dataregistro")
-    private LocalDate dataregistro;
 
     @JsonProperty("level")
     private Long level;

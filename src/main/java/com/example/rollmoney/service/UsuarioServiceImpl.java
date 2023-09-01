@@ -19,7 +19,7 @@ public class UsuarioServiceImpl implements UsuarioService{
     private final UsuarioMapper usuarioMapper;
 
     @Override
-    public UsuarioDTO save(UsuarioDTO usuarioDTO, String senha) {
+    public String save(UsuarioDTO usuarioDTO, String senha, String email, String cpf) {
 
 
         Usuario usuario =  usuarioRepository.findByNomeusuario(usuarioDTO.getNomeusuario());
@@ -27,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService{
             throw new ProfileDataException("Usuário já existente");
         }
 
-        Usuario usuario1 = usuarioRepository.findByEmail(usuarioDTO.getEmail());
+        Usuario usuario1 = usuarioRepository.findByEmail(email);
         if(usuario1 != null){
             throw new ProfileDataException("Email já existente");
         }
@@ -36,8 +36,10 @@ public class UsuarioServiceImpl implements UsuarioService{
         usuarioDTO.setDataregistro(LocalDate.now());
         Usuario usuario2 = usuarioMapper.map(usuarioDTO);
         usuario2.setSenha(senha);
+        usuario2.setCpf(cpf);
+        usuario2.setEmail(email);
         usuarioRepository.save(usuario2);
-        return null;
+        return "usuario criado";
     }
 
     @Override

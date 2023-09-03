@@ -12,6 +12,7 @@ import com.example.rollmoney.service.exception.ProfileDataException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,9 +29,24 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public AutenticadorResponseDTO autenticar(AutenticadorDTO autenticadorDTO) {
 
-        try {
+
          Usuario usuario = usuarioRepository.findByNomeusuario(autenticadorDTO.getUsuario());
+         if(usuario == null){
+             throw new ProfileDataException("Erro na autenticação");
+         }
+
           if(usuario.getSenha().equals(autenticadorDTO.getSenha())){
+
+
+              List<Autenticacao> autenticacao2 = autenticacaoRepository.findByUsuarioid(usuario.getId());
+              if(autenticacao2.size() != 0){
+                  AutenticadorResponseDTO autenticadorResponseDTO = new AutenticadorResponseDTO();
+                  autenticadorResponseDTO.setUsuarioDTO(usuarioMapper.map(usuario));
+                  autenticadorResponseDTO.setDuracao(autenticadorResponseDTO.getDuracao());
+                  autenticadorResponseDTO.setToken(autenticacao2.get(0).getToken());
+                  return autenticadorResponseDTO;
+              }
+
               UUID uuid = UUID.randomUUID();
               String myRandom = uuid.toString().substring(0,20);
               Autenticacao autenticacao = new Autenticacao();
@@ -46,10 +62,8 @@ public class AuthServiceImpl implements AuthService{
 
               return autenticadorResponseDTO;
           }
-        }catch (Exception e){
 
-        }
-        return null;
+        throw new ProfileDataException("Erro na autenticação");
     }
 
     @Override

@@ -13,8 +13,8 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class MensagemChatGeralDTO {
 
-    @JsonProperty("usuarioid")
-    private Long usuarioid;
+    @JsonProperty("token")
+    private String token;
 
     @JsonProperty("mensagem")
     private String mensagem;

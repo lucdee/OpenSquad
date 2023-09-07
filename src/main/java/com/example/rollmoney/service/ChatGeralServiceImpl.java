@@ -3,12 +3,14 @@ package com.example.rollmoney.service;
 import com.example.rollmoney.dto.ChatGeralDTO;
 import com.example.rollmoney.dto.chat.MensagemChatGeralDTO;
 import com.example.rollmoney.dto.chat.MensagemChatGeralRetornoDTO;
+import com.example.rollmoney.entity.Autenticacao;
 import com.example.rollmoney.entity.ChatGeral;
 import com.example.rollmoney.entity.MensagemChatGeral;
 import com.example.rollmoney.entity.Usuario;
 import com.example.rollmoney.mapper.ChatGeralMapper;
 import com.example.rollmoney.mapper.MensagemChatGeralMapper;
 import com.example.rollmoney.mapper.UsuarioMapper;
+import com.example.rollmoney.repository.AutenticacaoRepository;
 import com.example.rollmoney.repository.ChatGeralRepository;
 import com.example.rollmoney.repository.MensagemChatGeralRepository;
 import com.example.rollmoney.repository.UsuarioRepository;
@@ -37,6 +39,8 @@ public class ChatGeralServiceImpl implements ChatGeralService {
 
    private final MensagemChatGeralMapper mensagemChatGeralMapper;
 
+   private final AutenticacaoRepository autenticacaoRepository;
+
 
     @Override
     public ChatGeralDTO save(ChatGeralDTO chatGeralDTO) {
@@ -46,10 +50,12 @@ public class ChatGeralServiceImpl implements ChatGeralService {
 
     @Override
     public String enviarmensagem(MensagemChatGeralDTO mensagemChatGeralDTO) {
-       Optional<Usuario> usuario = usuarioRepository.findById(mensagemChatGeralDTO.getUsuarioid());
-       if (usuario == null){
+       Autenticacao autenticacao = autenticacaoRepository.findByToken(mensagemChatGeralDTO.getToken());
+       if (autenticacao == null){
            throw new ProfileDataException("Usuario não encontrado");
        }
+
+       Optional<Usuario> usuario =  usuarioRepository.findById(autenticacao.getUsuarioid());
 
        ChatGeral chatGeral = chatGeralRepository.getById(mensagemChatGeralDTO.getChatgeral());
         if (chatGeral == null){

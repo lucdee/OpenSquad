@@ -1,12 +1,9 @@
 package com.example.rollmoney.entity;
 
-import com.example.rollmoney.repository.PerfilRepository;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-
-
 
 @Builder
 @Setter
@@ -14,8 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "autenticacao")
-public class Autenticacao {
+@Table(name = "squad")
+public class Squad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator="seq")
@@ -23,17 +20,21 @@ public class Autenticacao {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idperfil")
-    private Perfil idPerfil;
+    @Column(name = "nome")
+    private String nome;
 
-    @Column(name = "token")
-    private String token;
+    @Column(name = "descricao")
+    private String descricao;
+
+    @Column(name = "imgsquad")
+    private String imgSquad;
+
+    @Column(name = "area")
+    private String area;
 
     @Column(name = "datacriacao")
     private String dataCriacao;
 
-    @Column(name = "dataexpiracao")
-    private String dataExpiracao;
-
+    @Column(name = "status")
+    private String status;
 }

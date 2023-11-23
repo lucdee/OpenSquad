@@ -9,6 +9,9 @@ import com.v1.opensquad.service.exception.ProfileDataException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PerfilServiceImpl implements PerfilService{
@@ -20,14 +23,19 @@ public class PerfilServiceImpl implements PerfilService{
 
     @Override
     public PerfilDTO save(PerfilDTO perfilDto) {
-        Perfil perfil = perfilRepository.findByEmail(perfilDto.getEmail());
-        if(perfil !=null){
+        List<Perfil> perfil = perfilRepository.findByEmail(perfilDto.getEmail());
+        if(perfil.size()!= 0 ){
             throw new ProfileDataException("Já existe uma conta com esse email");
         }
-        Perfil perfil1 = perfilRepository.findByUsuario(perfilDto.getUsuario());
-        if(perfil1 !=null){
+        List<Perfil> perfil1 = perfilRepository.findByUsuario(perfilDto.getUsuario());
+        if(perfil1.size()!= 0){
             throw new ProfileDataException("Já existe uma conta com esse usuário");
         }
+        perfilDto.setLevel(0);
+        perfilDto.setExp(0);
+        perfilDto.setDataCriacao(String.valueOf(LocalDateTime.now()));
+        perfilDto.setPremium("S");
+        perfilDto.setStatus("A");
 
        Perfil perfilSave =  perfilRepository.save(perfilMapper.map(perfilDto));
         return perfilMapper.map(perfilSave);

@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,14 +31,14 @@ public class AutenticacaoServiceImpl implements AutenticacaoService{
 
     @Override
     public AutenticacaoRetornoDTO auth(AutenticacaoDTO autenticacaoDTO) {
-        Perfil perfilByEmail = perfilRepository.findByEmail(autenticacaoDTO.getEmailUsuario());
-        Perfil perfilByUsuario = perfilRepository.findByUsuario(autenticacaoDTO.getEmailUsuario());
+        List<Perfil> perfilByEmail = perfilRepository.findByEmail(autenticacaoDTO.getEmailUsuario());
+        List<Perfil> perfilByUsuario = perfilRepository.findByUsuario(autenticacaoDTO.getEmailUsuario());
         Perfil perfilEncontrado = null;
 
-        if(perfilByUsuario == null && perfilByEmail != null){
-            perfilEncontrado = perfilByEmail;
-        }else if(perfilByUsuario != null && perfilByEmail == null){
-            perfilEncontrado = perfilByUsuario;
+        if(perfilByUsuario.size() == 0 && perfilByEmail != null){
+            perfilEncontrado = perfilByEmail.get(0);
+        }else if(perfilByUsuario != null && perfilByEmail.size() == 0){
+            perfilEncontrado = perfilByUsuario.get(0);
         }else {
             throw new ProfileDataException("Perfil não encontrado com o email ou usuario");
         }

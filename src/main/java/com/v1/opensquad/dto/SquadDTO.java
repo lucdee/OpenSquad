@@ -15,7 +15,10 @@ public class SquadDTO {
     private String nome;
     private String descricao;
     private String imgSquad;
-    private String area;
+    private byte[] imgSquadfile;
+    private CategoriaSquadDTO area;
     private String dataCriacao;
     private String status;
+
+
 }

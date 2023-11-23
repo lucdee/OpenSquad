@@ -15,6 +15,7 @@ public class ParticipanteDTO {
     private Integer participacao;
     private String funcao;
     private SquadDTO idSquad;
+    private PerfilDTO idPerfil;
     private String dataEntrada;
     private String status;
     private Integer cargaHoraria;

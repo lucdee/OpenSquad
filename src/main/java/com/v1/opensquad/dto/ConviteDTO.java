@@ -17,8 +17,8 @@ public class ConviteDTO {
 
 
     private Integer id;
-    private Perfil idPerfilEnvio;
-    private Squad idSquad;
+    private PerfilDTO idPerfilEnvio;
+    private SquadDTO idSquad;
     private String dataConvite;
     private String status;
     private String funcao;

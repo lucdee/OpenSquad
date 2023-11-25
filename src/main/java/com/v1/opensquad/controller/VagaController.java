@@ -33,4 +33,14 @@ public class VagaController {
     ) {
         return ResponseEntity.ok(vagaService.findBySquad(idsquad));
     }
+
+
+    @GetMapping("/findbyid")
+    public ResponseEntity<VagaDTO> findById(
+            @RequestParam("idavaga") Long idavaga
+    ) {
+        return ResponseEntity.ok(vagaService.findById(idavaga));
+    }
+
+
 }

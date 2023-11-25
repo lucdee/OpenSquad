@@ -9,4 +9,6 @@ public interface VagaService {
     VagaDTO save(String token, VagaDTO vagaDTO, Long idsquad);
 
     List<VagaDTO> findBySquad(Long idsquad);
+
+    VagaDTO findById(Long idVaga);
 }

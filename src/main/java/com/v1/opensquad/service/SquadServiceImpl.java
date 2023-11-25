@@ -99,7 +99,7 @@ public class SquadServiceImpl implements SquadService{
         return getSquadDTOSImages(squads);
     }
 
-    private List<SquadDTO> getSquadDTOSImages(List<Squad> squads) {
+    public List<SquadDTO> getSquadDTOSImages(List<Squad> squads) {
         List<SquadDTO> squadDTOS = squadMapper.mapToDTO(squads);
 
         for (SquadDTO squadDTO : squadDTOS) {

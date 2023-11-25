@@ -16,7 +16,6 @@ public class PerfilDTO {
     private String nomeCompleto;
     private String usuario;
     private String dataNascimento;
-    private String senha;
     private Integer level;
     private Integer exp;
     private String imgPerfil;

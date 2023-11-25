@@ -56,4 +56,10 @@ public class VagaServiceImpl implements VagaService{
         List<Vaga> vagas = vagaRepository.findByIdsquadId(idsquad);
         return vagaMapper.map2(vagas);
     }
+
+    @Override
+    public VagaDTO findById(Long idVaga) {
+        Optional<Vaga> vagas = vagaRepository.findById(idVaga);
+        return vagaMapper.map(vagas.get());
+    }
 }
